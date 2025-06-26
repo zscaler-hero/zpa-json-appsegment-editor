@@ -1,0 +1,39 @@
+# Environment files
+.env
+.env.local.*
+.env.local
+
+# Application data files
+application_segments.json
+*.json.backup
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+zpa_editor.log
+
+# Temporary files
+*.tmp
+*.bak
+.cache/
