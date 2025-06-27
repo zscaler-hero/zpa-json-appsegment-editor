@@ -143,17 +143,23 @@ This helps understand the scope and complexity of your ZPA configuration.
 The server group management feature (available in interactive mode) allows bulk operations on server groups:
 
 1. **Select a server group** from existing groups in your segments
-2. **Search for segments** by name (partial match, case-insensitive)
+2. **Search for segments** by name (partial match, case-insensitive) or by matchStyle:
+    - Regular search: `webapp` (finds segments with "webapp" in name)
+    - Match style filter: `matchStyle:INCLUSIVE` or `matchStyle:EXCLUSIVE`
 3. **Interactive selection** with keyboard navigation:
     - `↑/↓`: Move up/down (arrow keys)
     - `Space`: Toggle selection
     - `a`: Select all (immediate action)
     - `n`: Select none (immediate action)
+    - `i`: Select all INCLUSIVE segments (only if matchStyle is present)
+    - `e`: Select all EXCLUSIVE segments (only if matchStyle is present)
     - `Enter`: Continue with selected
 4. **Choose operation**:
     - Add server group to selected segments
     - Remove server group from selected segments
 5. **Review and confirm** changes before applying
+
+**Match Style Display**: When segments have the `matchStyle` property, it will be shown as `[INC]` for INCLUSIVE or `[EXC]` for EXCLUSIVE in the segment list.
 
 **Important**: This feature only modifies the local JSON file. Use the "Update" option to sync changes with ZPA.
 
@@ -183,10 +189,20 @@ The exported JSON contains an array of application segment objects:
     "serverGroups": [...],
     "tcpPortRanges": ["443", "443"],
     "udpPortRanges": [],
+    "matchStyle": "INCLUSIVE",
     ...
   }
 ]
 ```
+
+### Understanding matchStyle (Multimatch)
+
+The `matchStyle` property in the JSON corresponds to the **"Multimatch"** setting in the ZPA UI:
+
+-   **`matchStyle: "INCLUSIVE"`** = **Multimatch ENABLED** in UI
+-   **`matchStyle: "EXCLUSIVE"`** = **Multimatch DISABLED** in UI
+
+**Note**: The API uses the term `matchStyle` while the ZPA UI shows this as the "Multimatch" toggle. They refer to the same functionality.
 
 ## API Endpoints Used
 
